@@ -1,6 +1,3 @@
 [submodule "lib/JLexPHP"]
 	path = lib/JLexPHP
 	url = git@github.com:kuma-giyomu/JLexPHP.git
-[submodule "lib/lemon-php"]
-	path = lib/lemon-php
-	url = git@github.com:kuma-giyomu/lemon-php.git
