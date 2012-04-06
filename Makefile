@@ -4,12 +4,18 @@ JLEX_HOME=lib/JLexPHP
 LEMON_HOME=lib/lemon-php
 LEMON=$(LEMON_HOME)/lemon
 
-all: $(PACKAGE)/JSONLex.php $(PACKAGE)/JSONGrammar.php
+all: package
+
+package: $(PACKAGE)/JLexBase.php $(PACKAGE)/JSONLex.php $(PACKAGE)/JSONGrammar.php
+	
+	
+$(PACKAGE)/JLexBase.php:
+	cp $(JLEX_HOME)/jlex.php $(PACKAGE)/JLexBase.php 
 
 $(PACKAGE)/JSONLex.php: $(PARSER_SRC)/JSONLex.lex.php
 	cp $(PARSER_SRC)/JSONLex.lex.php $(PACKAGE)/JSONLex.php
 
-$(PARSER_SRC)/JSONLex.php: $(JLEX_HOME)/JLexPHP.jar  $(PARSER_SRC)/JSONLex.lex
+$(PARSER_SRC)/JSONLex.lex.php: $(JLEX_HOME)/JLexPHP.jar  $(PARSER_SRC)/JSONLex.lex
 	java -cp $(JLEX_HOME)/JLexPHP.jar JLexPHP.Main $(PARSER_SRC)/JSONLex.lex
 
 $(JLEX_HOME)/JLexPHP.jar:

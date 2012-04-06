@@ -1,5 +1,5 @@
 <?php # vim:ft=php
-include __DIR__ . '/jlex.php';
+include __DIR__ . '/JLexBase.php';
 include __DIR__ . '/JSONGrammar.php';
 
 %%
