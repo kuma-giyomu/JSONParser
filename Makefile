@@ -6,7 +6,7 @@ LEMON=$(LEMON_HOME)/lemon
 
 all: $(PACKAGE)/JSONLex.php $(PACKAGE)/JSONGrammar.php
 
-$(PACKAGE)/JSONLex.php: $(PARSER_SRC)/JSONLex.php
+$(PACKAGE)/JSONLex.php: $(PARSER_SRC)/JSONLex.lex.php
 	cp $(PARSER_SRC)/JSONLex.lex.php $(PACKAGE)/JSONLex.php
 
 $(PARSER_SRC)/JSONLex.php: $(JLEX_HOME)/JLexPHP.jar  $(PARSER_SRC)/JSONLex.lex
