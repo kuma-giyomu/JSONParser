@@ -35,3 +35,6 @@ clean:
 	rm -f $(PACKAGE)/JSONLex.php
 	rm -f $(PARSER_SRC)/JSONGrammar.out $(PARSER_SRC)/JSONGrammar.h $(PARSER_SRC)/JSONGrammar.php
 	rm -f $(PACKAGE)/JSONGrammar.php
+
+test: package
+	php test/test.php

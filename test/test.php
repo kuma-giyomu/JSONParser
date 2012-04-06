@@ -1,12 +1,12 @@
 <?php
-require_once __DIR__ . '/../gen/json.lex.php';
-require_once __DIR__ . '/../gen/json.php';
+require_once __DIR__ . '/../package/JSONLex.php';
+require_once __DIR__ . '/../package/JSONGrammar.php';
 
 error_reporting(E_ALL);
-$P = new JSONParser();
+$P = new JSONGrammarParser();
 $L = new JSONLex(fopen(__DIR__ . '/data.json', 'r'));
 
 while ($t = $L->nextToken()) {
-	$P->JSON($t->type, $t);
+	$P->JSONGrammar($t->type, $t);
 }
-$P->JSON(0);
+$P->JSONGrammar(0);
