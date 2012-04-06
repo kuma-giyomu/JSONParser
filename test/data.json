@@ -1,0 +1,22 @@
+{
+	"integer": 42,
+	"ninteger": -42,
+	"boolean": true,
+	"float": 123.23,
+	"nfloat": -123.23,
+	"string": "hello world",
+    "dodgyString": "\"f\\d/s\"",
+    "unicodeString": "日本語",
+	"array": [
+		1,
+		2,
+		3,
+		5,
+		7
+	],
+	"object": {
+		"property1": 1,
+		"property2": 2,
+		"property3": "3"
+	}
+}
