@@ -23,7 +23,7 @@ UNESCAPED_CH = [^\"\\]
 
 %%
 
-<STRING_BEGIN> \"								{ $this->yybegin(self::YYINITIAL); return $this->createToken(JSONParser::TK_STRING_VALUE, $this->buffer); }
+<STRING_BEGIN> \"								{ $this->yybegin(self::YYINITIAL); return $this->createToken(JSONGrammarParser::TK_STRING_VALUE, $this->buffer); }
 <STRING_BEGIN> {UNESCAPED_CH}+					{ $this->buffer .= $this->yytext(); }
 <STRING_BEGIN> \\\"								{ $this->buffer .= '"'; }
 <STRING_BEGIN> \\\\								{ $this->buffer .= '\\'; }
@@ -35,14 +35,14 @@ UNESCAPED_CH = [^\"\\]
 <STRING_BEGIN> "\t"								{ $this->buffer .= "\t"; }
                                                                                                 
 <YYINITIAL> \"									{ $this->buffer = ''; $this->yybegin(self::STRING_BEGIN); }
-<YYINITIAL> {INT}                               { return $this->createToken(JSONParser::TK_VALUE); }
-<YYINITIAL> {DOUBLE}                    		{ return $this->createToken(JSONParser::TK_VALUE); }
-<YYINITIAL> true|false	              			{ return $this->createToken(JSONParser::TK_VALUE); }
-<YYINITIAL> null                              	{ return $this->createToken(JSONParser::TK_VALUE); }
-<YYINITIAL> "{"                                 { return $this->createToken(JSONParser::TK_LEFT_BRACE); }
-<YYINITIAL> "}"                                 { return $this->createToken(JSONParser::TK_RIGHT_BRACE); }
-<YYINITIAL> "["                                 { return $this->createToken(JSONParser::TK_LEFT_SQUARE); }
-<YYINITIAL> "]"                                 { return $this->createToken(JSONParser::TK_RIGHT_SQUARE); }
-<YYINITIAL> ","                                 { return $this->createToken(JSONParser::TK_COMMA); }
-<YYINITIAL> ":"                                 { return $this->createToken(JSONParser::TK_COLON); }
+<YYINITIAL> {INT}                               { return $this->createToken(JSONGrammarParser::TK_VALUE); }
+<YYINITIAL> {DOUBLE}                    		{ return $this->createToken(JSONGrammarParser::TK_VALUE); }
+<YYINITIAL> true|false	              			{ return $this->createToken(JSONGrammarParser::TK_VALUE); }
+<YYINITIAL> null                              	{ return $this->createToken(JSONGrammarParser::TK_VALUE); }
+<YYINITIAL> "{"                                 { return $this->createToken(JSONGrammarParser::TK_LEFT_BRACE); }
+<YYINITIAL> "}"                                 { return $this->createToken(JSONGrammarParser::TK_RIGHT_BRACE); }
+<YYINITIAL> "["                                 { return $this->createToken(JSONGrammarParser::TK_LEFT_SQUARE); }
+<YYINITIAL> "]"                                 { return $this->createToken(JSONGrammarParser::TK_RIGHT_SQUARE); }
+<YYINITIAL> ","                                 { return $this->createToken(JSONGrammarParser::TK_COMMA); }
+<YYINITIAL> ":"                                 { return $this->createToken(JSONGrammarParser::TK_COLON); }
 <YYINITIAL> {WS}+                       		{}
