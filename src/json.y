@@ -1,5 +1,5 @@
 /* This is a lemon grammar for the JSON format */
-%name JSON
+%name JSONGrammar
 %token_prefix TK_
 
 /* this defines a symbol for the lexer */
