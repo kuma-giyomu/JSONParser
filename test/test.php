@@ -1,7 +1,5 @@
 <?php
-define('PROJECT_ROOT', dirname(__DIR__) . DIRECTORY_SEPARATOR);
-require_once PROJECT_ROOT . 'package/JSONLex.php';
-require_once PROJECT_ROOT . 'package/JSONParser.php';
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'package/JSONParser.php';
 
 error_reporting(E_ALL);
 
@@ -29,14 +27,14 @@ function scalar($value, $property) {
 	printf("Value: %s\n", $value);
 }
 
-$lexer = new JSONLex(fopen(__DIR__ . '/data.json', 'r'));
-
+// initialise the parser object
 $parser = new JSONParser();
+
+// sets the callbacks
 $parser->setArrayHandlers('arrayStart', 'arrayEnd');
 $parser->setObjectHandlers('objStart', 'objEnd');
 $parser->setPropertyHandler('property');
 $parser->setScalarHandler('scalar');
 
-while ($token = $lexer->nextToken()) {
-	$parser->parse($token->type, $token);
-}
+// parse the document
+$parser->parseDocument(__DIR__ . '/data.json');

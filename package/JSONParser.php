@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'JSONLex.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'JSONParserException.php';
 
 /**
@@ -267,6 +268,28 @@ class JSONParser {
 		}
 		
 		$this->processCurrentToken($tokenId, $token);
+	}
+	
+	/**
+	 * Convenience method for preparing a lexer and parsing a specific file.
+	 * @param resource|string $file resource to read
+	 * @throws JSONParserException if the resource to read cannot be found 
+	 * OR if the document does not conform to JSON's syntax.
+	 */
+	public function parseDocument($file) {
+		// check the parameter type to see if we need to open a new stream
+		$fileResource = is_resource($file) ? $file : fopen($file, 'r');
+		if(is_null($fileResource)) {
+			throw new JSONParserException(sprintf('Could not open resource %s in reading', $file));
+		}
+		
+		// instanciate a lexer
+		$lexer = new JSONLex($file);
+		
+		// parse the document
+		while ($token = $lexer->nextToken()) {
+			$this->parse($token->type, $token);
+		}
 	}
 	
 	/**
