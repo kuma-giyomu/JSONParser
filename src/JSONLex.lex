@@ -1,6 +1,6 @@
-<?php # vim:ft=php
-require_once __DIR__ . '/JLexBase.php';
-require_once __DIR__ . '/JSONParser.php';
+<?php
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'JLexBase.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'JSONParser.php';
 
 %%
 
@@ -23,7 +23,7 @@ UNESCAPED_CH = [^\"\\]
 
 %%
 
-<STRING_BEGIN> \"								{ $this->yybegin(self::YYINITIAL); return $this->createToken(JSONParser::TK_STRING_VALUE, $this->buffer); }
+<STRING_BEGIN> \"								{ $this->yybegin(self::YYINITIAL); return $this->createToken(JSONParser::TK_STRING, $this->buffer); }
 <STRING_BEGIN> {UNESCAPED_CH}+					{ $this->buffer .= $this->yytext(); }
 <STRING_BEGIN> \\\"								{ $this->buffer .= '"'; }
 <STRING_BEGIN> \\\\								{ $this->buffer .= '\\'; }
@@ -35,10 +35,10 @@ UNESCAPED_CH = [^\"\\]
 <STRING_BEGIN> "\t"								{ $this->buffer .= "\t"; }
                                                                                                 
 <YYINITIAL> \"									{ $this->buffer = ''; $this->yybegin(self::STRING_BEGIN); }
-<YYINITIAL> {INT}                               { return $this->createToken(JSONParser::TK_VALUE); }
-<YYINITIAL> {DOUBLE}                    		{ return $this->createToken(JSONParser::TK_VALUE); }
-<YYINITIAL> true|false	              			{ return $this->createToken(JSONParser::TK_VALUE); }
-<YYINITIAL> null                              	{ return $this->createToken(JSONParser::TK_VALUE); }
+<YYINITIAL> {INT}                               { return $this->createToken(JSONParser::TK_NUMBER); }
+<YYINITIAL> {DOUBLE}                    		{ return $this->createToken(JSONParser::TK_NUMBER); }
+<YYINITIAL> true|false	              			{ return $this->createToken(JSONParser::TK_BOOL); }
+<YYINITIAL> null                              	{ return $this->createToken(JSONParser::TK_NULL); }
 <YYINITIAL> "{"                                 { return $this->createToken(JSONParser::TK_LEFT_BRACE); }
 <YYINITIAL> "}"                                 { return $this->createToken(JSONParser::TK_RIGHT_BRACE); }
 <YYINITIAL> "["                                 { return $this->createToken(JSONParser::TK_LEFT_SQUARE); }
