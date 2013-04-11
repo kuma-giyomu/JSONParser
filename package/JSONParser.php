@@ -284,7 +284,7 @@ class JSONParser {
 		}
 		
 		// instanciate a lexer
-		$lexer = new JSONLex($file);
+		$lexer = new JSONLex($fileResource);
 		
 		// parse the document
 		while ($token = $lexer->nextToken()) {
