@@ -36,5 +36,12 @@ $parser->setObjectHandlers('objStart', 'objEnd');
 $parser->setPropertyHandler('property');
 $parser->setScalarHandler('scalar');
 
+echo "Parsing top level object document...\n";
 // parse the document
 $parser->parseDocument(__DIR__ . '/data.json');
+
+$parser->initialise();
+
+echo "Parsing top level array document...\n";
+// parse the top level array
+$parser->parseDocument(__DIR__ . '/array.json');

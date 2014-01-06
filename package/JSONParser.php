@@ -133,7 +133,7 @@ class JSONParser {
 	 */
 	static $ALLOWED_NEXT_TOKENS = array(
 		self::STATE_INIT => array(
-			self::TK_INIT => array(self::TK_LEFT_BRACE)
+			self::TK_INIT => array(self::TK_LEFT_BRACE, self::TK_LEFT_SQUARE)
 		),
 	
 		self::STATE_OBJECT => array(
@@ -363,7 +363,7 @@ class JSONParser {
 			case self::TK_STRING;
 				// a string has been detected
 				// checks if a property has already been set
-				if(is_null($this->activeProperty)) {
+				if($this->getCurrentState() == self::STATE_OBJECT && is_null($this->activeProperty)) {
 					// no property set, so we assume this is a property
 					$this->activeProperty = $token;
 					
