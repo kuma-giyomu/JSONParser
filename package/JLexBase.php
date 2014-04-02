@@ -139,7 +139,7 @@ class JLexBase {
             $this->yycol = 0;
           }
           if ("\r" == $this->yy_buffer[$i]) {
-            ++$yyline;
+            ++$this->yyline;
             $this->yycol = 0;
             $this->yy_last_was_cr = true;
           } else {
