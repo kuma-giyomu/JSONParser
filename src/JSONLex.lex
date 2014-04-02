@@ -19,15 +19,18 @@ HEX_D = [a-fA-F0-9]
 INT = [-]?[0-9]+
 DOUBLE = {INT}((\.[0-9]+)?([eE][-+]?[0-9]+)?)
 WS = [ \t\r\n]
+UNICODE_SEQUENCE = \\(u|U){HEX_D}{HEX_D}{HEX_D}{HEX_D}
 UNESCAPED_CH = [^\"\\]
 
 %%
 
 <STRING_BEGIN> \"								{ $this->yybegin(self::YYINITIAL); return $this->createToken(JSONParser::TK_STRING, $this->buffer); }
+<STRING_BEGIN> {UNICODE_SEQUENCE}				{ $this->buffer .= json_decode('"' . $this->yytext() . '"'); }
 <STRING_BEGIN> {UNESCAPED_CH}+					{ $this->buffer .= $this->yytext(); }
 <STRING_BEGIN> \\\"								{ $this->buffer .= '"'; }
 <STRING_BEGIN> \\\\								{ $this->buffer .= '\\'; }
 <STRING_BEGIN> "/"								{ $this->buffer .= "/"; }
+<STRING_BEGIN> "\/"								{ $this->buffer .= "/"; }
 <STRING_BEGIN> "\b"								{ $this->buffer .= "\b"; }
 <STRING_BEGIN> "\f"								{ $this->buffer .= "\f"; }
 <STRING_BEGIN> "\n"								{ $this->buffer .= "\n"; }

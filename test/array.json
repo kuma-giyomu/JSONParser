@@ -19,7 +19,9 @@
       "property1": 1,
       "property2": 2,
       "property3": "3"
-    }
+    } ,
+    "unicode": "d\u00e9cor",
+    "url": "http:\/\/example.com"
   },
   1,
   "Test"
