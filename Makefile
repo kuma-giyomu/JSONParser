@@ -6,9 +6,9 @@ LEMON_HOME=lib/lemon-php
 all: package
 
 package: $(PACKAGE)/JLexBase.php $(PACKAGE)/JSONLex.php
-	
+
 $(PACKAGE)/JLexBase.php:
-	cp $(JLEX_HOME)/jlex.php $(PACKAGE)/JLexBase.php 
+	cp $(JLEX_HOME)/jlex.php $(PACKAGE)/JLexBase.php
 
 $(PACKAGE)/JSONLex.php: $(PARSER_SRC)/JSONLex.lex.php
 	cp $(PARSER_SRC)/JSONLex.lex.php $(PACKAGE)/JSONLex.php
@@ -23,5 +23,7 @@ clean:
 	rm -f $(PARSER_SRC)/JSONLex.lex.php
 	rm -f $(PACKAGE)/JSONLex.php
 
-test: package
+test: package FORCE
 	php test/test.php
+
+FORCE:
